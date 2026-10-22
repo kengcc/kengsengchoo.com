@@ -18,8 +18,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io', github.repository_owner) }}
-      SITE_BASE: ${{ vars.SITE_BASE || format('/{0}/', github.event.repository.name) }}
+      SITE_URL: ${{ vars.SITE_URL || 'https://kengsengchoo.com' }}
+      SITE_BASE: ${{ vars.SITE_BASE || '/' }}
     steps:
       - uses: actions/checkout@v7
       - name: Build the static website

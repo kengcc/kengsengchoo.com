@@ -10,13 +10,21 @@ The website contains the 31 published WordPress articles, seven unrestricted pag
 
 ## Hosting
 
-The public artist source repository is [Keng Seng Choo Artist](https://github.com/kengcc/Keng-Seng-Choo-Artist). The existing [live website](https://kengcc.github.io/kengsengchoo.com/) is deployed from `kengcc/kengsengchoo.com`; keep both repositories in sync when publishing. The workflow builds and validates both copies, and deploys only from the hosting repository to preserve the current website address.
+The public artist source repository is [Keng Seng Choo Artist](https://github.com/kengcc/Keng-Seng-Choo-Artist). The existing [live website](https://kengsengchoo.com/) is deployed from `kengcc/kengsengchoo.com`; keep both repositories in sync when publishing. The workflow builds and validates both copies, and deploys only from the hosting repository at the custom domain.
 
-The GitHub Actions workflow builds and publishes the `main` branch through GitHub Pages. Set the repository's Pages source to GitHub Actions. Its default publishing address is the repository owner's GitHub Pages project URL.
+The GitHub Actions workflow builds and publishes the `main` branch through GitHub Pages. Set the repository's Pages source to GitHub Actions. The production address is `https://kengsengchoo.com/`.
 
-The workflow derives `SITE_URL` and `SITE_BASE` from the repository. Optional repository variables override them. For the future custom domain, set `SITE_URL=https://kengsengchoo.com` and `SITE_BASE=/` after ownership and DNS are configured. Add the verified domain in Pages settings and provide the corresponding `public/CNAME`. Do not configure the unowned domain in advance.
+The workflow defaults to `SITE_URL=https://kengsengchoo.com` and `SITE_BASE=/`, matching the custom domain configured in GitHub Pages and `public/CNAME`. Optional repository variables override them; remove any old project-path overrides when publishing at the domain root. Local preview builds still default to `/` without a production origin.
 
-To test a project-path deployment locally:
+To test the production deployment locally:
+
+```sh
+SITE_URL=https://kengsengchoo.com SITE_BASE=/ npm run build
+SITE_BASE=/ npm run validate
+SITE_URL=https://kengsengchoo.com npm run validate:seo
+```
+
+To test an alternative project-path deployment locally:
 
 ```sh
 SITE_URL=https://kengcc.github.io SITE_BASE=/kengsengchoo.com/ npm run build
